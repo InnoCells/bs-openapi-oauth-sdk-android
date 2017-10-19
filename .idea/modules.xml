@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/authenticator/authsdk2.iml" filepath="$PROJECT_DIR$/authenticator/authsdk2.iml" />
+      <module fileurl="file://$PROJECT_DIR$/authsdk.iml" filepath="$PROJECT_DIR$/authsdk.iml" />
+      <module fileurl="file://$PROJECT_DIR$/sampleapp/app.iml" filepath="$PROJECT_DIR$/sampleapp/app.iml" />
+    </modules>
+  </component>
+</project>
