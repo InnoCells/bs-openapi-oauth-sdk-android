@@ -16,8 +16,8 @@ class AuthUriUtils(val data: AuthData, uniqueStringLength: Int = 16) {
         private val STATE = "state"
         private val ERROR = "error"
         private val CODE = "code"
-        val CLIENT_ID = "CLI1462287906482kIZMWo4CYyLqzVQAfIX4ftNmqBIcz6ZSwBNzgwXG74054H"
-        val PASSWORD = "123456789"
+        private val CLIENT_ID = "CLI1462287906482kIZMWo4CYyLqzVQAfIX4ftNmqBIcz6ZSwBNzgwXG74054H"
+        private val PASSWORD = "123456789"
     }
 
     val upper = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
@@ -36,10 +36,10 @@ class AuthUriUtils(val data: AuthData, uniqueStringLength: Int = 16) {
         String(buf)
     }
 
-    val baseAuthUrl = "${BASE_PATH}/authorize?response_type=code&state=$uniqueString&redirect_uri=${data.url}" +
-            "&client_id=${CLIENT_ID}&scope=read"
+    val baseAuthUrl = "$BASE_PATH/authorize?response_type=code&state=$uniqueString&redirect_uri=${data.url}" +
+            "&client_id=$CLIENT_ID&scope=read"
 
-    val baseAuthHeader: String = Base64.encodeToString("${CLIENT_ID}:${PASSWORD}".toByteArray(Charsets.UTF_8), Base64.NO_WRAP)
+    val baseAuthHeader: String = Base64.encodeToString("$CLIENT_ID:$PASSWORD".toByteArray(Charsets.UTF_8), Base64.NO_WRAP)
 
     init {
         if (uniqueStringLength < 16) throw IllegalArgumentException("String size must be at least 16 chars")
@@ -56,7 +56,7 @@ class AuthUriUtils(val data: AuthData, uniqueStringLength: Int = 16) {
             return ""
         }
         val code = uri.getQueryParameter(CODE)
-        return "${BASE_PATH}/token?grant_type=authorization_code&code=$code&redirect_uri=${data.url}&scope=read"
+        return "$BASE_PATH/token?grant_type=authorization_code&code=$code&redirect_uri=${data.url}&scope=read"
     }
 
 
