@@ -3,10 +3,10 @@ package com.bancsabadell.authsdk.data
 import android.os.Parcel
 import android.os.Parcelable
 
-data class AuthResult(val error: String? = null, val tokenResponse: TokenResponse? = null) : Parcelable {
+data class ResultData(val error: String? = null, val tokenResponse: AuthData? = null) : Parcelable {
     constructor(parcel: Parcel) : this(
             parcel.readString(),
-            parcel.readParcelable(TokenResponse::class.java.classLoader))
+            parcel.readParcelable(AuthData::class.java.classLoader))
 
     override fun writeToParcel(parcel: Parcel, flags: Int) {
         parcel.writeString(error)
@@ -17,12 +17,12 @@ data class AuthResult(val error: String? = null, val tokenResponse: TokenRespons
         return 0
     }
 
-    companion object CREATOR : Parcelable.Creator<AuthResult> {
-        override fun createFromParcel(parcel: Parcel): AuthResult {
-            return AuthResult(parcel)
+    companion object CREATOR : Parcelable.Creator<ResultData> {
+        override fun createFromParcel(parcel: Parcel): ResultData {
+            return ResultData(parcel)
         }
 
-        override fun newArray(size: Int): Array<AuthResult?> {
+        override fun newArray(size: Int): Array<ResultData?> {
             return arrayOfNulls(size)
         }
     }

@@ -2,14 +2,14 @@ package com.bancsabadell.authsdk.utils
 
 import android.net.Uri
 import android.util.Base64
-import com.bancsabadell.authsdk.data.AuthData
+import com.bancsabadell.authsdk.data.RequestData
 import java.security.SecureRandom
 import java.util.*
 
 /**
  * Created by Kame on 20/10/2017.
  */
-class AuthUriUtils(val data: AuthData, uniqueStringLength: Int = 16) {
+class AuthUriUtils(val data: RequestData, uniqueStringLength: Int = 16) {
 
     companion object {
         private val BASE_PATH = "https://developers.bancsabadell.com/AuthServerBS/oauth"

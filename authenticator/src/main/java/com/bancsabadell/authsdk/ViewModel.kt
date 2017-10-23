@@ -5,8 +5,8 @@ import android.graphics.Bitmap
 import android.net.Uri
 import android.util.Log
 import android.webkit.*
-import com.bancsabadell.authsdk.data.TokenResponse
 import com.bancsabadell.authsdk.data.AuthData
+import com.bancsabadell.authsdk.data.RequestData
 import com.bancsabadell.authsdk.utils.AuthUriUtils
 import com.fasterxml.jackson.databind.ObjectMapper
 import rx.Observable
@@ -20,7 +20,7 @@ import java.net.URL
 /**
  * Created by Kame on 19/10/2017.
  */
-class ViewModel(val data: AuthData) {
+class ViewModel(val data: RequestData) {
 
     companion object {
         val LOG_TAG = "AuthSdk"
@@ -28,7 +28,7 @@ class ViewModel(val data: AuthData) {
 
     interface Callback {
         fun onError(description: String)
-        fun onCompleted(tokenResponse: TokenResponse)
+        fun onCompleted(tokenResponse: AuthData)
     }
 
     var callback: Callback? = null
@@ -125,8 +125,8 @@ class ViewModel(val data: AuthData) {
         callback?.onError(error)
     }
 
-    fun requestToken(finalUrl: String, token: String): Observable<TokenResponse> {
-        return Observable.unsafeCreate<TokenResponse> { subscriber ->
+    fun requestToken(finalUrl: String, token: String): Observable<AuthData> {
+        return Observable.unsafeCreate<AuthData> { subscriber ->
             try {
                 val urlConnection = URL(finalUrl).openConnection()
                 urlConnection.doOutput = true
@@ -142,7 +142,7 @@ class ViewModel(val data: AuthData) {
                 } while (inputLine != null)
 
                 val mapper = ObjectMapper()
-                val tokenResponse = mapper.readValue(response.toString(), TokenResponse::class.java)
+                val tokenResponse = mapper.readValue(response.toString(), AuthData::class.java)
                 if (!subscriber.isUnsubscribed) {
                     subscriber.onNext(tokenResponse)
                     subscriber.onCompleted()
