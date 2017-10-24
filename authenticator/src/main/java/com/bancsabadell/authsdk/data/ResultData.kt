@@ -3,14 +3,14 @@ package com.bancsabadell.authsdk.data
 import android.os.Parcel
 import android.os.Parcelable
 
-data class ResultData(val error: String? = null, val tokenResponse: AuthData? = null) : Parcelable {
+data class ResultData(val error: String? = null, val authData: AuthData? = null) : Parcelable {
     constructor(parcel: Parcel) : this(
             parcel.readString(),
             parcel.readParcelable(AuthData::class.java.classLoader))
 
     override fun writeToParcel(parcel: Parcel, flags: Int) {
         parcel.writeString(error)
-        parcel.writeParcelable(tokenResponse, flags)
+        parcel.writeParcelable(authData, flags)
     }
 
     override fun describeContents(): Int {

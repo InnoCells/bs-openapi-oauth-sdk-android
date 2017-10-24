@@ -12,7 +12,7 @@ import org.json.JSONObject
 data class AuthData(@JsonProperty("access_token") val accessToken: String,
                     @JsonProperty("token_type") val tokenType: String,
                     @JsonProperty("refresh_token") val refreshToken: String,
-                    @JsonProperty("expires_in") val expiresId: Int,
+                    @JsonProperty("expires_in") val expiresIn: Int,
                     @JsonProperty("scope") val scope: String,
                     @JsonProperty("client_id") val clientId: String) : Parcelable {
 
@@ -28,7 +28,7 @@ data class AuthData(@JsonProperty("access_token") val accessToken: String,
         parcel.writeString(accessToken)
         parcel.writeString(tokenType)
         parcel.writeString(refreshToken)
-        parcel.writeInt(expiresId)
+        parcel.writeInt(expiresIn)
         parcel.writeString(scope)
         parcel.writeString(clientId)
     }

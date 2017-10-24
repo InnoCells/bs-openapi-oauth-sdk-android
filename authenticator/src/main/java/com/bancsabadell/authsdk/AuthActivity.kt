@@ -33,7 +33,7 @@ class AuthActivity : AppCompatActivity() {
 
         viewModel.callback = object : ViewModel.Callback {
             override fun onCompleted(tokenResponse: AuthData) {
-                onFinish(Activity.RESULT_OK, prepareResult(ResultData(tokenResponse = tokenResponse)))
+                onFinish(Activity.RESULT_OK, prepareResult(ResultData(authData = tokenResponse)))
             }
 
             override fun onError(description: String) {
