@@ -5,8 +5,8 @@ import android.content.Intent
 import android.databinding.DataBindingUtil
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
-import com.bancsabadell.authsdk.data.AuthData
-import com.bancsabadell.authsdk.data.AuthResult
+import com.bancsabadell.authsdk.data.RequestData
+import com.bancsabadell.authsdk.data.ResultData
 import com.bancsabadell.authsdk.databinding.SampleActivityBinding
 
 /**
@@ -24,7 +24,7 @@ class SampleActivity : AppCompatActivity() {
         binding = DataBindingUtil.setContentView<SampleActivityBinding>(this, R.layout.sample_activity)
         binding.initToken.setOnClickListener {
             val intent = Intent(this, AuthActivity::class.java)
-            intent.putExtra(AuthActivity.AUTH_DATA, AuthData("http://localhost:3000/callback", true))
+            intent.putExtra(AuthActivity.EXTRA_REQUEST_DATA, RequestData("CLI1462287906482kIZMWo4CYyLqzVQAfIX4ftNmqBIcz6ZSwBNzgwXG74054H", "123456789", true))
             startActivityForResult(intent, REQUEST_AUTH_CODE)
         }
     }
@@ -32,14 +32,14 @@ class SampleActivity : AppCompatActivity() {
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         if (requestCode == REQUEST_AUTH_CODE) {
-            val authResult: AuthResult? = AuthActivity.getAuthResult(data)
+            val resultData: ResultData? = AuthActivity.getResultData(data)
 
             if (resultCode == Activity.RESULT_OK) {
                 binding.success = true
-                binding.text = authResult?.tokenResponse?.accessToken
+                binding.text = resultData?.authData?.accessToken
             } else {
                 binding.success = false
-                binding.text = authResult?.error ?: "Cancelled"
+                binding.text = resultData?.error ?: "Cancelled"
             }
         }
     }

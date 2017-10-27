@@ -18,7 +18,7 @@ class AuthActivity : AppCompatActivity() {
     companion object {
         val EXTRA_REQUEST_DATA = "EXTRA_DATA"
         private val AUTH_RESULT = "AUTH_RESULT"
-        @JvmStatic fun getAuthResult(intent: Intent?): ResultData? = intent?.getParcelableExtra<ResultData>(AUTH_RESULT)
+        @JvmStatic fun getResultData(intent: Intent?): ResultData? = intent?.getParcelableExtra<ResultData>(AUTH_RESULT)
     }
 
     lateinit var webView: WebView

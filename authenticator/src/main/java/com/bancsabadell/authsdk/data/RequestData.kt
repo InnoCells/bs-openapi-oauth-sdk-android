@@ -3,15 +3,15 @@ package com.bancsabadell.authsdk.data
 import android.os.Parcel
 import android.os.Parcelable
 
-data class RequestData(val url: String, val clientId: String, val debug: Boolean = false) : Parcelable {
+data class RequestData(val clientId: String, val clientSecret: String, val debug: Boolean = false) : Parcelable {
     constructor(parcel: Parcel) : this(
             parcel.readString(),
             parcel.readString(),
             parcel.readByte() != 0.toByte())
 
     override fun writeToParcel(parcel: Parcel, flags: Int) {
-        parcel.writeString(url)
         parcel.writeString(clientId)
+        parcel.writeString(clientSecret)
         parcel.writeByte(if (debug) 1 else 0)
     }
 
