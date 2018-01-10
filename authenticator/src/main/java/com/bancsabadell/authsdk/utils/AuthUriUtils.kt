@@ -12,11 +12,9 @@ import java.util.*
 class AuthUriUtils(val data: RequestData, uniqueStringLength: Int = 16) {
 
     companion object {
-        private val BASE_PATH = "https://developers.bancsabadell.com/AuthServerBS/oauth"
         private val STATE = "state"
         private val ERROR = "error"
         private val CODE = "code"
-        private val REDIRECT_URI = "http://localhost:3000/callback"
     }
 
     val upper = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
@@ -35,7 +33,7 @@ class AuthUriUtils(val data: RequestData, uniqueStringLength: Int = 16) {
         String(buf)
     }
 
-    val baseAuthUrl = "$BASE_PATH/authorize?response_type=code&state=$uniqueString&redirect_uri=$REDIRECT_URI" +
+    val baseAuthUrl = "${data.basePath}/authorize?response_type=code&state=$uniqueString&redirect_uri=${data.redirectUri}" +
             "&client_id=${data.clientId}&scope=read"
 
     val baseAuthHeader: String = Base64.encodeToString("${data.clientId}:${data.clientSecret}".toByteArray(Charsets.UTF_8), Base64.NO_WRAP)
@@ -48,14 +46,14 @@ class AuthUriUtils(val data: RequestData, uniqueStringLength: Int = 16) {
 
     fun isSecure(uri: Uri?) = uri?.getQueryParameter(STATE) == uniqueString
 
-    fun isPreviousOfToken(uri: Uri?) = uri.toString().startsWith(REDIRECT_URI)
+    fun isPreviousOfToken(uri: Uri?) = uri.toString().startsWith(data.redirectUri)
 
     fun buildRequestTokenUrl(uri: Uri?): String {
         if (uri == null) {
             return ""
         }
         val code = uri.getQueryParameter(CODE)
-        return "$BASE_PATH/token?grant_type=authorization_code&code=$code&redirect_uri=$REDIRECT_URI&scope=read"
+        return "${data.basePath}/token?grant_type=authorization_code&code=$code&redirect_uri=${data.redirectUri}&scope=read"
     }
 
 
